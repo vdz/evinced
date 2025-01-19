@@ -22,7 +22,7 @@ export const  DebouncedInput: React.FC<DebouncedInputProps> = ({
     }, debounce)
 
     return () => clearTimeout(timeout)
-  }, [value])
+  }, [value, debounce, onChange])
 
   return (
     <input {...props} value={value} onChange={e => setValue(e.target.value)} />

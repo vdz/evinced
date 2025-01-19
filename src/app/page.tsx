@@ -10,7 +10,7 @@ export default function TableDisplayPage() {
   
   useEffect(() => {
     setIssues(data);
-  }, []);
+  }, [setIssues]);
 
   return (
       <Link href="/issues" aria-label="Navigate to issues list">Go to Issues</Link>

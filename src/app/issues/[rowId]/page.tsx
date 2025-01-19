@@ -1,14 +1,14 @@
+'use client';
+
 import { IssueDetails } from "@/components/Details/IssueDetails";
+import { useParams } from "next/navigation";
 
-export interface IssuePageProps {
-    params: {
-        rowId: string;
+export default function Page() {
+    const { rowId } = useParams();
+    
+    if (!rowId) {
+        return <div>No rowId provided</div>;
     }
+    
+    return <IssueDetails id={rowId as string} />;
 }
-
-export const IssuePage: React.FC<IssuePageProps> = ({ params }) => {
-    const id = params.rowId;
-    return <IssueDetails id={id} />;
-}
-
-export default IssuePage;

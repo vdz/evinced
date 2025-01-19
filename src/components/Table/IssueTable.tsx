@@ -26,7 +26,7 @@ export const IssueTable: React.FC<IssueTableProps<Issue>> = ({
     columns,
     onRowClick,
 }) => {
-    const columnConfig = useMemo(() => createColumnConfig(), [columns]);
+    const columnConfig = useMemo(createColumnConfig, [columns]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const activeIssueId = useIssuesStore(state => state.activeIssueId);
     const setActiveIssue = useIssuesStore(state => state.setActiveIssue);
@@ -164,10 +164,7 @@ export const IssueTable: React.FC<IssueTableProps<Issue>> = ({
                             key={row.id} 
                             className={classes} 
                             onClick={() => {
-                                if (onRowClick) {
-                                    onRowClick(row.original.id.toString());
-                                }
-                                setActiveIssue(row.original.id.toString());
+                                rowClick(row.original.id.toString());
                             }}
                             role="row"
                             aria-selected={isSelected}
@@ -175,8 +172,7 @@ export const IssueTable: React.FC<IssueTableProps<Issue>> = ({
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter' || e.key === ' ') {
                                     e.preventDefault();
-                                    onRowClick?.(row.original.id.toString());
-                                    setActiveIssue(row.original.id.toString());
+                                    rowClick(row.original.id.toString());
                                 }
                             }}
                         >
@@ -206,7 +202,9 @@ export const IssueTable: React.FC<IssueTableProps<Issue>> = ({
     }
 
     function rowClick(rowId: string) {
-        console.log('rowId', rowId);
-        alert(table.getRowModel().rowsById[rowId]);
+        if (onRowClick) {
+            onRowClick(rowId);
+        }
+        setActiveIssue(rowId);
     }
 };
