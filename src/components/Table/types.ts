@@ -12,7 +12,8 @@ export interface Issue {
 
 export interface ColumnConfig {
   key: string;
-  label: string
+  label: string;
+  filterable?: boolean;
 }
 
 export interface IssueTableProps<T> {

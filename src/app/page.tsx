@@ -1,33 +1,18 @@
-import { IssueTable } from "@/components/Table/IssueTable";
-import { Issue } from "@/components/Table/types";
-import data from "@/mocks/issues";
-import { useState } from "react";
+'use client';
 
-export default function TableDisplay() {
-  const [issues, setIssues] = useState<Issue[]>(data);
+import data from "@/mocks/issues";
+import { useIssuesStore } from "@/store/useIssuesStore";
+import Link from "next/link";
+import { useEffect } from "react";
+
+export default function TableDisplayPage() {
+  const setIssues = useIssuesStore(state => state.setIssues);
+  
+  useEffect(() => {
+    setIssues(data);
+  }, []);
+
   return (
-    <>
-      <IssueTable data={issues} 
-      columns={[{
-        key: "issueType",
-        label: "Issue Type",
-      },
-        {
-        key: "severity",
-        label: "Severity",
-      },
-        {
-        key: "component",
-        label: "Component",
-      },
-        {
-        key: "selector",
-        label: "Selector",
-      },
-        {
-        key: "url",
-        label: "URL",
-      }]} />
-    </>
+      <Link href="/issues" aria-label="Navigate to issues list">Go to Issues</Link>
   );
 }

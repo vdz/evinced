@@ -1,2 +1,11 @@
-@import "./reset.css";
+:root {
+    --accent-color: #607085;
+    --active-color: #435060;
+    --strong-color: #131516;
 
+    --table-spacer: 10px;
+  }
+
+body {
+    font-family: var(--font-geist-sans);  
+}
