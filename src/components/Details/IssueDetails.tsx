@@ -1,7 +1,6 @@
 'use client';
 
 import { IssueDetailsProps } from "./types";
-import data from "@/mocks/issues";
 import { 
     CodeSnippet, 
     Description, 

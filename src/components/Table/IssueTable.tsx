@@ -30,6 +30,7 @@ export const IssueTable: React.FC<IssueTableProps<Issue>> = ({
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const activeIssueId = useIssuesStore(state => state.activeIssueId);
     const setActiveIssue = useIssuesStore(state => state.setActiveIssue);
+
     const table = useReactTable({
         data: data,
         columns: columnConfig,
@@ -69,7 +70,8 @@ export const IssueTable: React.FC<IssueTableProps<Issue>> = ({
             sortingFn: 'basic',
         });
 
-        config.unshift(rowNumber)
+        config.unshift(rowNumber);
+
         return config;
     }
 
@@ -92,7 +94,10 @@ export const IssueTable: React.FC<IssueTableProps<Issue>> = ({
                                 <TableHeaderCell 
                                     key={`header-cell-${header.id}`}
                                     className={classes}
-                                    onClick={header.column.getToggleSortingHandler()}
+                                    onClick={() => {
+                                        header.column.toggleSorting();
+                                    }
+                                    }
                                     role="columnheader"
                                     aria-sort={isSorted ? (isSorted === 'asc' ? 'ascending' : 'descending') : 'none'}
                                     tabIndex={0}
@@ -102,6 +107,7 @@ export const IssueTable: React.FC<IssueTableProps<Issue>> = ({
                                             header.column.toggleSorting();
                                         }
                                     }}
+                                    title={`Sort by ${header.column.columnDef.header}\nusing [space] or [enter]`}
                                 >
                                     {flexRender(header.column.columnDef.header, header.getContext())}
                                     {getSortControl(isSorted as string)}
